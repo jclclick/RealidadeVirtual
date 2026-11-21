@@ -34,7 +34,13 @@
     embedded
     vr-mode-ui="enabled: false"
     renderer="antialias: true; colorManagement: true"
-    arjs="sourceType: webcam; trackingMethod: best; detectionMode: mono; debugUIEnabled: false;"
+    arjs="sourceType: webcam;
+          sourceWidth: 1280; sourceHeight: 960;
+          displayWidth: 1280; displayHeight: 960;
+          canvasWidth: 960; canvasHeight: 720;
+          maxDetectionRate: 30;
+          trackingMethod: best; detectionMode: mono;
+          debugUIEnabled: false;"
   >
     <a-light type="ambient" intensity="0.9"></a-light>
     <a-light type="directional" position="2 4 3" intensity="1.2"></a-light>
@@ -44,6 +50,10 @@
       type="pattern"
       url="https://jclclick.github.io/RealidadeVirtual/pattern-lua.patt"
       emitevents="true"
+      smooth="true"
+      smoothCount="10"
+      smoothTolerance="0.01"
+      smoothThreshold="5"
     >
       <a-sphere
         position="0 0.45 0"
@@ -62,14 +72,20 @@
     const marcador = document.getElementById("marcador-lua");
     const status = document.getElementById("status");
 
+    let timerPerdido = null;
+
     marcador.addEventListener("markerFound", () => {
+      clearTimeout(timerPerdido);
       status.textContent = "Marcador da Lua reconhecido!";
       status.style.background = "rgba(0, 120, 40, 0.85)";
     });
 
+    // Espera um pouco antes de mostrar "perdido", para nÃ£o piscar quando a leitura falha por um instante
     marcador.addEventListener("markerLost", () => {
-      status.textContent = "Procurando marcador da Lua...";
-      status.style.background = "rgba(0, 0, 0, 0.75)";
+      timerPerdido = setTimeout(() => {
+        status.textContent = "Procurando marcador da Lua...";
+        status.style.background = "rgba(0, 0, 0, 0.75)";
+      }, 800);
     });
   </script>
 </body>
