@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Realidade Aumentada - Lua 3D</title>
+  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.8/aframe/build/aframe-ar.js"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    #status {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      padding: 10px 18px;
+      border-radius: 8px;
+      color: #FFFFFF;
+      background: rgba(0, 0, 0, 0.75);
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="status">Procurando marcador da Lua...</div>
+
+  <a-scene
+    embedded
+    vr-mode-ui="enabled: false"
+    renderer="antialias: false; colorManagement: true"
+    arjs="sourceType: webcam; trackingMethod: best; detectionMode: mono; debugUIEnabled: false;"
+  >
+    <!-- Marcador personalizado da Lua -->
+    <a-marker
+      id="marcador-lua"
+      type="pattern"
+      url="https://SEU_USUARIO.github.io/RealidadeAumentada/pattern-lua.patt"
+      emitevents="true"
+    >
+      <!-- Outra lua (esfera 3D) exibida sobre o marcador -->
+      <a-sphere
+        position="0 0.6 0"
+        radius="0.6"
+        color="#E6E6E6"
+        material="roughness: 0.8"
+      ></a-sphere>
+    </a-marker>
+
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <script>
+    const marcador = document.getElementById("marcador-lua");
+    const status = document.getElementById("status");
+
+    marcador.addEventListener("markerFound", () => {
+      status.textContent = "Marcador da Lua reconhecido!";
+      status.style.background = "rgba(0, 120, 40, 0.85)";
+    });
+
+    marcador.addEventListener("markerLost", () => {
+      status.textContent = "Procurando marcador da Lua...";
+      status.style.background = "rgba(0, 0, 0, 0.75)";
+    });
+  </script>
+</body>
+</html>
