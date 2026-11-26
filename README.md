@@ -42,3 +42,7 @@ Dicas para Melhor Rastreamento e Visualização
 Iluminação e reflexos: Evite luz forte refletindo diretamente na tela do monitor ou no papel, pois isso pode dificultar a leitura da borda do marcador.
 
 Distância e enquadramento: Se o objeto parecer grande demais ou perder o rastreamento, ajuste a distância do celular até enquadrar o marcador completo com nitidez.
+
+------------------------------                                                 ------------------------------                                             ------------------------------ 
+
+
